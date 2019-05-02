@@ -1,16 +1,18 @@
 'use strict';
 
-const cats = {c1: 'Bonaparte', c2: 'Trece'};
+const field = document.querySelector('.js__textarea');
 
-localStorage.setItem('cats', JSON.stringify(cats));
+const saveData = event => {
+  const element = event.currentTarget;
+  localStorage.setItem('myText',JSON.stringify(element.value));
+};
 
-const savedCats = JSON.parse(localStorage.getItem('cats'));
-
-console.log('cats:', cats);
-if (savedCats !== null) {
-  console.log('savedCats:', savedCats);
+if (localStorage.getItem('myText') !== null) {
+  // Hay datos en el LS
+  field.value = JSON.parse(localStorage.getItem('myText'))
 } else {
-  console.log('No hay datos guardados en el LocalStorage');
+  // No hay datos
+  field.value = '';
 }
 
-
+field.addEventListener('keyup', saveData);
